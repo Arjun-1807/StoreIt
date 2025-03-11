@@ -19,7 +19,7 @@ import Image from "next/image";
 // image imports
 import loader from "@/public/assets/icons/loader.svg";
 import Link from "next/link";
-import { createAccout } from "@/lib/actions/user.actions";
+import { createAccout, singInuser } from "@/lib/actions/user.actions";
 import OTPModal from "@/components/OTPModal";
 
 type FormType = "sign-in" | "sign-up";
@@ -55,10 +55,13 @@ const AuthForm = ({ type }: { type: FormType }) => {
     setErrorMessage("");
 
     try {
-      const user = await createAccout({
-        fullName: values.fullName || "",
-        email: values.email,
-      });
+      const user =
+        type === "sign-up"
+          ? await createAccout({
+              fullName: values.fullName || "",
+              email: values.email,
+            })
+          : await singInuser({ email: values.email });
 
       setAccountId(user.accountId);
     } catch {

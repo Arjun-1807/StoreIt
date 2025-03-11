@@ -6,6 +6,7 @@ import FileUploader from "@/components/FileUploader";
 
 // image imports
 import logout from "@/public/assets/icons/logout.svg";
+import { signOutUser } from "@/lib/actions/user.actions";
 
 const Header = () => {
   return (
@@ -13,7 +14,12 @@ const Header = () => {
       <Search />
       <div className="header-wrapper">
         <FileUploader />
-        <form>
+        <form
+          action={async () => {
+            "use server";
+            await signOutUser();
+          }}
+        >
           <Button type="submit" className="sign-out-button">
             <Image
               src={logout}

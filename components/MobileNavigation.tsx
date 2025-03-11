@@ -2,12 +2,15 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navItems } from "@/constants";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { signOutUser } from "@/lib/actions/user.actions";
 import { Button } from "@/components/ui/button";
+import FileUploader from "@/components/FileUploader";
 
+// shadcn imports
 import {
   Sheet,
   SheetContent,
@@ -21,7 +24,6 @@ import { Separator } from "@/components/ui/separator";
 import logoFullBrand from "@/public/assets/icons/logo-full-brand.svg";
 import menu from "@/public/assets/icons/menu.svg";
 import logout from "@/public/assets/icons/logout.svg";
-import FileUploader from "@/components/FileUploader";
 
 interface Props {
   ownerId: string;
@@ -32,8 +34,8 @@ interface Props {
 }
 
 const MobileNavigation = ({
-  ownerId,
-  accountId,
+  // ownerId,
+  // accountId,
   fullName,
   email,
   avatar,
@@ -114,7 +116,7 @@ const MobileNavigation = ({
             <Button
               type="submit"
               className="mobile-sign-out-button"
-              onClick={() => {}}
+              onClick={async () => await signOutUser()}
             >
               <Image src={logout} alt="logout" width={24} height={24} />
               <p>Logout</p>
