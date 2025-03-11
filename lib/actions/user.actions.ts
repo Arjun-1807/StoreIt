@@ -1,6 +1,7 @@
 "use server";
 
-import { createAdminClient } from "@/lib/appwrite";
+import { avatarPlaceholderUrl } from "@/constants";
+import { createAdminClient, createSessionClient } from "@/lib/appwrite";
 import { appwriteConfig } from "@/lib/appwrite/config";
 import { parseStringify } from "@/lib/utils";
 import { cookies } from "next/headers";
@@ -56,8 +57,7 @@ export const createAccout = async ({
       {
         fullName,
         email,
-        avatar:
-          "https://media.istockphoto.com/id/2151669184/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=UEa7oHoOL30ynvmJzSCIPrwwopJdfqzBs0q69ezQoM8=",
+        avatar: avatarPlaceholderUrl,
         accountId,
       }
     );
@@ -89,4 +89,20 @@ export const verifySecret = async ({
   } catch (error) {
     handleErorr(error, "Failed to verify OTP");
   }
+};
+
+export const getCurrentUser = async () => {
+  const { databases, account } = await createSessionClient();
+
+  const result = await account.get();
+
+  const user = await databases.listDocuments(
+    appwriteConfig.databaseId,
+    appwriteConfig.usersCollectionId,
+    [Query.equal("accountId", result.$id)]
+  );
+
+  if (user.total <= 0) return null;
+
+  return parseStringify(user.documents[0]);
 };
