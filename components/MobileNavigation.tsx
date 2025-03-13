@@ -26,7 +26,7 @@ import menu from "@/public/assets/icons/menu.svg";
 import logout from "@/public/assets/icons/logout.svg";
 
 interface Props {
-  ownerId: string;
+  $id: string;
   accountId: string;
   fullName: string;
   email: string;
@@ -34,8 +34,8 @@ interface Props {
 }
 
 const MobileNavigation = ({
-  // ownerId,
-  // accountId,
+  $id: ownerId,
+  accountId,
   fullName,
   email,
   avatar,
@@ -112,7 +112,7 @@ const MobileNavigation = ({
             className="flex flex-col justify-between gap-5 pb5
           "
           >
-            <FileUploader />
+            <FileUploader ownerId={ownerId} accountId={accountId} />
             <Button
               type="submit"
               className="mobile-sign-out-button"
