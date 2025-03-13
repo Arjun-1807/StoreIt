@@ -1,12 +1,18 @@
 import React from "react";
-import Sort from "@/components/sort";
+import Sort from "@/components/Sort";
 import { getFiles } from "@/lib/actions/file.actions";
 import { Models } from "node-appwrite";
 import Card from "@/components/Card";
-const page = async ({ params }: SearchParamProps) => {
-  const type = ((await params)?.type as string) || "";
+import { getFileTypesParams } from "@/lib/utils";
 
-  const files = await getFiles();
+const Page = async ({ searchParams, params }: SearchParamProps) => {
+  const type = ((await params)?.type as string) || "";
+  const searchText = ((await searchParams)?.query as string) || "";
+  const sort = ((await searchParams)?.sort as string) || "";
+
+  const types = getFileTypesParams(type) as FileType[];
+
+  const files = await getFiles({ types, searchText, sort });
 
   return (
     <div className="page-container">
@@ -15,19 +21,18 @@ const page = async ({ params }: SearchParamProps) => {
 
         <div className="total-size-section">
           <p className="body-1">
-            Total: <span>o MB</span>
+            Total: <span className="h5">0 MB</span>
           </p>
 
           <div className="sort-container">
-            <p className="body-1 text-light-200 hidden sm:block">Sort by:</p>
+            <p className="body-1 hidden text-light-200 sm:block">Sort by:</p>
 
             <Sort />
           </div>
         </div>
       </section>
 
-      {/* render the files */}
-
+      {/* Render the files */}
       {files.total > 0 ? (
         <section className="file-list">
           {files.documents.map((file: Models.Document) => (
@@ -35,10 +40,10 @@ const page = async ({ params }: SearchParamProps) => {
           ))}
         </section>
       ) : (
-        <p>No files uploaded</p>
+        <p className="empty-list">No files uploaded</p>
       )}
     </div>
   );
 };
 
-export default page;
+export default Page;
