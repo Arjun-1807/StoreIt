@@ -127,7 +127,7 @@ export const singInuser = async ({ email }: { email: string }) => {
 
     if (existingUser) {
       await sendEmailOTP({ email });
-      parseStringify({ accountId: existingUser.accountId });
+      return parseStringify({ accountId: existingUser.accountId });
     } else {
       return parseStringify({ accountId: null, error: "User not found" });
     }

@@ -83,5 +83,5 @@ export const sortTypes = [
 
 export const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 
-export const avatarPlaceHolderUrl =
+export const avatarPlaceholderUrl =
   "https://media.istockphoto.com/id/2151669184/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=UEa7oHoOL30ynvmJzSCIPrwwopJdfqzBs0q69ezQoM8=";
