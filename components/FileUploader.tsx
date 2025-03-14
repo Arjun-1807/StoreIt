@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { cn, convertFileToUrl } from "@/lib/utils";
-import React, { MouseEvent, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { getFileType } from "@/lib/utils";
 import Thumbnail from "@/components/Thumbnail";
@@ -63,9 +63,9 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const handleRemoveFile = (
-    e: React.MouseEvent<HTMLImageElement, MouseEvent>,
+    e: React.MouseEvent<HTMLImageElement>,
     fileName: string
-  ) => {
+  ): void => {
     e.stopPropagation();
     setFiles((prev) => prev.filter((file) => file.name !== fileName));
   };
