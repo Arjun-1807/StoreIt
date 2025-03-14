@@ -31,6 +31,8 @@ const chartConfig = {
 export const Chart = ({ used = 0 }: { used: number }) => {
   const chartData = [{ storage: "used", 10: used, fill: "white" }];
 
+  console.log("chartData", chartData);
+
   return (
     <Card className="chart">
       <CardContent className="flex-1 p-0">
@@ -92,7 +94,8 @@ export const Chart = ({ used = 0 }: { used: number }) => {
       <CardHeader className="chart-details">
         <CardTitle className="chart-title">Available Storage</CardTitle>
         <CardDescription className="chart-description">
-          {used ? convertFileSize(used) : "2GB"} / 2GB
+          {used !== null && used !== undefined ? convertFileSize(used) : "0B"} /
+          2GB
         </CardDescription>
       </CardHeader>
     </Card>
