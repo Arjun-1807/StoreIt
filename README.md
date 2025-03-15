@@ -1,6 +1,6 @@
 # StorIt - Modern Cloud Storage Solution
 
-![StorIt Logo](https://your-logo-url-here.com/logo.png)
+![StorIt Logo](public/assets/icons/logo-full.svg)
 
 ## 📋 Overview
 
